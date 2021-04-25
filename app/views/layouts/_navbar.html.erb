@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">DWARFURLER</a>
+  <%= link_to 'DWARFURLER', root_path, class: "h3 text-white font-weight-bold text-decoration-none mr-3" %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,9 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home
-          <span class="sr-only">(current)</span>
-        </a>
+        <%= link_to 'Home<span class="sr-only">(current)</span>'.html_safe, root_path, class: "nav-link" %>
       </li>
     </ul>
   </div>
