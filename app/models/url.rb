@@ -3,6 +3,6 @@ class Url < ApplicationRecord
   belongs_to :user, optional: true
 
   # Validations
-  validates :content, presence: true
-  validates :alias, uniqueness: { message: "This alias is already exist " }
+  validates :content, presence: true, uniqueness: { message: "already exist !" }
+  validates :alias, uniqueness: { message: "already exist !" }
 end

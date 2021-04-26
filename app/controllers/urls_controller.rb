@@ -3,7 +3,19 @@ class UrlsController < ApplicationController
   end
 
   def create
-    @url = Url.new(permitted_url_params)
+    params = permitted_url_params
+    alias_is_empty = params[:alias].gsub(/\s/, '').empty?
+    if alias_is_empty
+      new_alias = ''
+      loop do
+        new_alias = generate_random_string(8)
+        break if Url.where(alias: new_alias).empty?
+      end
+
+      params[:alias] = new_alias
+    end
+    
+    @url = Url.new(params)
 
     if @url.save
       flash[:success] = 'DwarfUrl generated successfully !'
@@ -15,8 +27,7 @@ class UrlsController < ApplicationController
   end
 
   def show
-    puts '-' * 60
-    puts '-' * 60
+    p params
   end
 
   def permitted_url_params
