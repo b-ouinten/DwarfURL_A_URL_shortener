@@ -27,7 +27,7 @@ class UrlsController < ApplicationController
   end
 
   def show
-    p params
+    @url = Url.find(params[:id])
   end
 
   def permitted_url_params
