@@ -6,6 +6,7 @@ ruby '2.7.2'
 # Additional gems needed for the project
 gem 'devise'
 gem 'table_print'
+gem 'friendly_id', '~> 5.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4'
