@@ -31,6 +31,6 @@ class UrlsController < ApplicationController
   end
 
   def permitted_url_params
-    params.require(:url).permit(:content, :alias).merge({ :user => current_user })
+    params.require(:url).permit(:url_content, :alias).merge({ :user => current_user })
   end
 end

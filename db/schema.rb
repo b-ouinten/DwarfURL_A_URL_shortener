@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_25_113557) do
+ActiveRecord::Schema.define(version: 2021_04_26_092544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "urls", force: :cascade do |t|
-    t.text "content"
+    t.text "url_content"
     t.string "alias"
     t.bigint "user_id"
     t.datetime "created_at", null: false
