@@ -1,0 +1,21 @@
+<div class="container-fluid mt-5">
+  <h2 class="text-center">Those are all your urls</h2>
+  <ul class="list-group">
+    <% @urls.each do |url| %>
+      <li class="list-group-item d-flex flex-column p-2">
+        <div class="card alert-info mb-1">
+          <div class="card-body p-2">
+            <h5 class="title-card">Giant url</h5>
+            <p class="text-card mb-0"><%= url.url_content %></p>
+          </div>
+        </div>
+        <div class="card alert-success">
+          <div class="card-body p-2">
+            <h5 class="title-card">Dwarf url</h5>
+            <p class="text-card mb-0"><%= url.alias %></p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
