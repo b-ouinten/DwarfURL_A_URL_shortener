@@ -14,7 +14,7 @@
 
   <% if user_signed_in? %>
     <div class="btn-group" role="group">
-      <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome <%= current_user.email.gsub(/@\w+.\w+/, '') %></button>
+      <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome <%= current_user_username %></button>
       <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
         <%= link_to 'My DwarfUrls', urls_path, class: "dropdown-item" %>
         <%= link_to "Log out", destroy_user_session_path, :class => "dropdown-item", method: :delete %>
