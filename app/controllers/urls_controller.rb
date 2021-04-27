@@ -21,9 +21,13 @@ class UrlsController < ApplicationController
 
   def show
     @url = Url.friendly.find(params[:id])
+
+    puts '-' * 60
+    # redirect_to @url.link
+    puts '-' * 60
   end
 
   def permitted_url_params
-    params.require(:url).permit(:url_content, :alias).merge({ :user => current_user })
+    params.require(:url).permit(:link, :alias).merge({ :user => current_user })
   end
 end
