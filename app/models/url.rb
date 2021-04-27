@@ -6,7 +6,7 @@ class Url < ApplicationRecord
   belongs_to :user, optional: true
   
   # Validations
-  validates :link, presence: true, uniqueness: { message: "already exist !" }
+  validates :giant_link, presence: true, uniqueness: { message: "already exist !" }
   validates :alias, uniqueness: { message: "already exist !" }
   
   # Gems
