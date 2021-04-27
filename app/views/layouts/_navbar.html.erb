@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <%= link_to 'DWARFURLER', root_path, class: "h3 text-white font-weight-bold text-decoration-none mr-3" %>
+  <%= link_to 'DWARFURLER', root_path, class: "navbar-brand" %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,7 +7,26 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
+        <%= link_to 'Home', root_path, class: "nav-link" %>
       </li>
     </ul>
   </div>
+
+  <% if user_signed_in? %>
+    <div class="btn-group" role="group">
+      <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome <%= current_user.email.gsub(/@\w+.\w+/, '') %></button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+        <%= link_to 'My DwarfUrls', urls_path, class: "dropdown-item" %>
+        <%= link_to "Log out", destroy_user_session_path, :class => "dropdown-item", method: :delete %>
+      </div>
+    </div>
+  <% else %>
+    <div class="btn-group" role="group">
+      <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connexion</button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+        <%= link_to 'Sign up', new_user_registration_path, class: "dropdown-item" %>
+        <%= link_to 'Log in', new_user_session_path, class: "dropdown-item" %>
+      </div>
+    </div> 
+  <% end %>
 </nav>
