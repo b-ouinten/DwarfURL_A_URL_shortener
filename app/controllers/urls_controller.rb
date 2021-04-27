@@ -1,6 +1,8 @@
 class UrlsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
+
   def index
-    @urls = Url.order(created_at: :desc)
+    @urls = current_user.urls.order(created_at: :desc)
   end
   
   def new
@@ -8,7 +10,7 @@ class UrlsController < ApplicationController
   end
 
   def create
-    @url = Url.new(permitted_url_params)
+    @url = current_user.urls.new(permitted_url_params)
 
     if @url.save
       flash[:success] = 'DwarfUrl generated successfully !'
@@ -25,6 +27,6 @@ class UrlsController < ApplicationController
   end
 
   def permitted_url_params
-    params.require(:url).permit(:link, :alias).merge({ :user => current_user })
+    params.require(:url).permit(:link, :alias)
   end
 end

@@ -3,7 +3,7 @@ class Url < ApplicationRecord
   before_validation :handle_alias
   
   # Associations
-  belongs_to :user, optional: true
+  belongs_to :user
   
   # Validations
   validates :link, presence: true, uniqueness: { message: "already exist !" }

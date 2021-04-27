@@ -1,21 +1,28 @@
 <div class="container-fluid mt-5">
-  <h3 class="text-center mb-4">Those are all your urls</h3>
-  <ul class="list-group">
-    <% @urls.each do |url| %>
-      <li class="list-group-item d-flex flex-column p-2">
-        <div class="card alert-info mb-1">
-          <div class="card-body p-2">
-            <h6 class="title-card">Giant url</h6>
-            <p class="text-card mb-0"><%= url.link %></p>
+  
+  <% if not @urls.empty? %>
+    <h3 class="text-center mb-4">Those are all your urls</h3>
+    <ul class="list-group">
+      <% @urls.each do |url| %>
+        <li class="list-group-item d-flex flex-column p-2">
+          <div class="card alert-info mb-1">
+            <div class="card-body p-2">
+              <h6 class="title-card">Giant url</h6>
+              <p class="text-card mb-0"><%= url.link %></p>
+            </div>
           </div>
-        </div>
-        <div class="card alert-success">
-          <div class="card-body p-2">
-            <h6 class="title-card">Dwarf url</h6>
-            <%= link_to "#{root_url}urls/#{url.alias}", url_path(url.slug), class: 'text-card link-text-color text-decoration-none mb-0' %>
+          <div class="card alert-success">
+            <div class="card-body p-2">
+              <h6 class="title-card">Dwarf url</h6>
+              <%= link_to "#{root_url}urls/#{url.alias}", url_path(url.slug), class: 'text-card link-text-color text-decoration-none mb-0' %>
+            </div>
           </div>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <h3 class="text-center">You don't have DwarfUrls yet !</h3>
+    <p class="text-center"><%= link_to 'You can generate as many DwarfUrls as you you want here ! ', root_path, class: "link-text-color text-decoration-none" %></p>
+  <% end %>
+  
 </div>
