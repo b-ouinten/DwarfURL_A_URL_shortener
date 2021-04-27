@@ -1,10 +1,10 @@
 class UrlsController < ApplicationController
   def index
-    @urls = Url.all
+    @urls = Url.order(created_at: :desc)
   end
   
   def new
-    
+    @url = Url.new
   end
 
   def create
@@ -21,10 +21,7 @@ class UrlsController < ApplicationController
 
   def show
     @url = Url.friendly.find(params[:id])
-
-    puts '-' * 60
-    # redirect_to @url.link
-    puts '-' * 60
+    redirect_to @url.link
   end
 
   def permitted_url_params

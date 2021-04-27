@@ -1,4 +1,4 @@
-<%= form_for Url.new do |f| %>
+<%= form_for @url do |f| %>
   <div class="form-group">
     <%= f.label :link, "Enter your giant URL to generate a DwarfUrl" %>
     <%= f.text_field :link, autofocus: true, class: "form-control"  %>
