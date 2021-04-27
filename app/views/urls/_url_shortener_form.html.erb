@@ -1,11 +1,11 @@
 <%= form_for @url do |f| %>
   <div class="form-group">
     <%= f.label :link, "Enter your giant URL to generate a DwarfUrl" %>
-    <%= f.text_field :link, autofocus: true, class: "form-control"  %>
+    <%= f.text_field :link, class: "form-control"  %>
   </div>
   <div class="form-group">
     <%= f.label :alias, "Enter an alias or let us generate a one for you !" %>
-    <%= f.text_field :alias, autofocus: true, class: "form-control"  %>
+    <%= f.text_field :alias, class: "form-control"  %>
   </div>
   <%= f.submit 'Generate DwarfUrl !' , class: 'btn btn-outline-success'  %>
 <% end %>

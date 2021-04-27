@@ -1,6 +1,6 @@
 class Url < ApplicationRecord
   # Callbacks
-  before_save :handle_alias
+  before_validation :handle_alias
   
   # Associations
   belongs_to :user, optional: true
@@ -25,8 +25,8 @@ class Url < ApplicationRecord
   private
   
   def handle_alias
-    self.alias.strip!
-    if self.alias.empty?
+    alias_is_empty = self.alias.gsub(/\s+/, '').empty?
+    if alias_is_empty
       new_alias = ''
       loop do
         new_alias = generate_random_string(8)
@@ -35,7 +35,7 @@ class Url < ApplicationRecord
 
       self.alias = new_alias
     else
-      self.alias.gsub!(/\s/, '-')
+      self.alias = self.alias.strip.gsub(/\s+/, '-')
     end
   end
 end
