@@ -19,7 +19,7 @@ class Url < ApplicationRecord
   end
   
   def normalize_friendly_id(string)
-    self.slug
+    string
   end
 
   private

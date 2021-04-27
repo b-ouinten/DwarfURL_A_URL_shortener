@@ -1,5 +1,10 @@
 class UrlsController < ApplicationController
   def index
+    
+  end
+  
+  def new
+    
   end
 
   def create
@@ -7,10 +12,10 @@ class UrlsController < ApplicationController
 
     if @url.save
       flash[:success] = 'DwarfUrl generated successfully !'
-      redirect_to @url
+      redirect_to urls_path
     else
       flash[:alert] = @url.errors.full_messages.to_sentence
-      redirect_to root_path
+      render :new
     end
   end
 
