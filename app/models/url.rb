@@ -9,6 +9,7 @@ class Url < ApplicationRecord
   validates :url_content, presence: true, uniqueness: { message: "already exist !" }
   validates :alias, uniqueness: { message: "already exist !" }
   
+  # Gems
   # Friendly_id gem
   extend FriendlyId
   friendly_id :alias, use: :slugged
@@ -17,6 +18,10 @@ class Url < ApplicationRecord
     new_record?
   end
   
+  def normalize_friendly_id(string)
+    self.slug
+  end
+
   private
   
   def set_alias
