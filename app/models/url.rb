@@ -1,13 +1,15 @@
 class Url < ApplicationRecord
-  # Callbacks
-  before_validation :handle_alias
-  
   # Associations
   belongs_to :user
   
   # Validations
-  validates :link, presence: true, uniqueness: { message: "already exist !" }
+  validates :link, 
+    presence: true, 
+    uniqueness: { message: "already exist !" }
   validates :_alias, uniqueness: { message: "already exist !" }
+
+  # Callbacks
+  before_validation :handle_alias
   
   # Gems
   # Friendly_id gem

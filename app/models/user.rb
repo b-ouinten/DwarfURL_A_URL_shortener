@@ -6,4 +6,7 @@ class User < ApplicationRecord
   
   # Associations
   has_many :urls, dependent: :destroy
+
+  # Validations
+  validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: 'wrong format !' }
 end
