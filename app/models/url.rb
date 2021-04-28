@@ -27,7 +27,7 @@ class Url < ApplicationRecord
   private
   
   def handle_alias
-    alias_is_empty = self._alias.gsub(/\s+/, '').empty?
+    alias_is_empty = self._alias.nil? || self._alias.gsub(/\s+/, '').empty?
     if alias_is_empty
       new_alias = ''
       loop do
