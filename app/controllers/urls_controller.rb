@@ -13,7 +13,7 @@ class UrlsController < ApplicationController
     @url = current_user.urls.new(permitted_url_params)
 
     if @url.save
-      flash[:success] = 'DwarfUrl generated successfully !'
+      flash[:success] = 'DwarfURL generated successfully !'
       redirect_to urls_path
     else
       flash[:alert] = @url.errors.full_messages.to_sentence
