@@ -6,3 +6,5 @@ Generate a DwarfURL is very simple all you have to do is provide your giant URL.
 This website is mobile friendly.
 
 You can try it here : https://dwarfurler.herokuapp.com/ !
+
+To launch the tests run : **rspec -fd**
