@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe UrlsController, type: :controller do
-  before :each do
-    @url = FactoryBot.create(:url)
-    @user = FactoryBot.create(:user)
-  end
   
   describe "GET #index" do
+    before :each do
+      @url = FactoryBot.create(:url)
+      @user = FactoryBot.create(:user)
+    end
+
     it "assigns @urls when user is signed in" do
       sign_in @user
       get :index
@@ -26,15 +27,61 @@ RSpec.describe UrlsController, type: :controller do
   end
   
   describe "GET #new" do
-    
+    it "render the new template" do
+      get :new
+      expect(response).to render_template 'new'
+    end
   end
 
   describe "GET #create" do
-    
+    context "with a valid attributes" do
+      before :each do
+        @user = FactoryBot.create(:user)
+      end
+      
+      it "create a new url" do
+        expect {
+          post :create, params: { url: FactoryBot.attributes_for(:url), user: @user }
+        }.to change(User, :count).by 1
+      end
+      
+      it "redirect to urls index" do
+        sign_in @user
+        post :create, params: { url: FactoryBot.attributes_for(:url), user: @user }
+        expect(response).to redirect_to urls_path
+      end
+    end
+
+    context "with an invalid attributes" do
+      it "doesn't create a new url" do
+        expect {
+          post :create, params: { url: {link: nil, _alais: nil, user: nil} }
+        }.not_to change(User, :count)
+      end
+      
+      it "re-render the new method" do
+        @user = FactoryBot.create(:user)
+        sign_in @user
+        post :create, params: { url: {link: nil, _alais: nil, user: nil} }
+        expect(response).to render_template :new
+      end
+    end
   end
 
   describe "GET #show" do
-    
+    before :each do
+      @url = FactoryBot.create(:url)
+    end
+
+    it "assigns @url" do
+      get :show, params: { id: @url.id }
+      expect(assigns(:url)).to eq @url
+    end
+
+    it "redirect to url link" do
+      get :show, params: { id: @url.id }
+      expect(response).to redirect_to @url.link
+    end
   end
 
   describe "GET #destroy" do

@@ -32,7 +32,7 @@ RSpec.describe Url, type: :model do
     describe "link" do
       it "should not be blank" do
         invalid_url = FactoryBot.build(:url, :without_link)
-        expect(invalid_url).not_to be_valid
+        expect(invalid_url).to_not be_valid
         expect(invalid_url.errors.include? :link).to eq true
         expect(invalid_url.errors.messages[:link].join.include? 'blank').to eq true
       end
@@ -40,7 +40,7 @@ RSpec.describe Url, type: :model do
       it "should not be already exist" do
         url = FactoryBot.create(:url, link: 'my_link')
         invalid_url = FactoryBot.build(:url, link: 'my_link')
-        expect(invalid_url).not_to be_valid
+        expect(invalid_url).to_not be_valid
         expect(invalid_url.errors.include? :link).to eq true
         expect(invalid_url.errors.messages[:link].join.include? 'exist').to eq true
       end
@@ -50,7 +50,7 @@ RSpec.describe Url, type: :model do
       it "should not be already exist" do
         url = FactoryBot.create(:url, _alias: ' my alias ')
         invalid_url = FactoryBot.build(:url, _alias: 'my-alias')
-        expect(invalid_url).not_to be_valid
+        expect(invalid_url).to_not be_valid
         expect(invalid_url.errors.include? :_alias).to eq true
         expect(invalid_url.errors.messages[:_alias].join.include? 'exist').to eq true
       end
@@ -72,7 +72,7 @@ RSpec.describe Url, type: :model do
         it "should run before validation" do
           url = FactoryBot.create(:url, _alias: 'my-alias')
           invalid_url = FactoryBot.build(:url, _alias: 'my alias ')
-          expect(invalid_url).not_to be_valid
+          expect(invalid_url).to_not be_valid
         end
       end
     end
