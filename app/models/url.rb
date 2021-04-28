@@ -7,12 +7,12 @@ class Url < ApplicationRecord
   
   # Validations
   validates :link, presence: true, uniqueness: { message: "already exist !" }
-  validates :alias, uniqueness: { message: "already exist !" }
+  validates :_alias, uniqueness: { message: "already exist !" }
   
   # Gems
   # Friendly_id gem
   extend FriendlyId
-  friendly_id :alias, use: :slugged
+  friendly_id :_alias, use: :slugged
   
   def should_generate_new_friendly_id?
     new_record?
@@ -25,17 +25,17 @@ class Url < ApplicationRecord
   private
   
   def handle_alias
-    alias_is_empty = self.alias.gsub(/\s+/, '').empty?
+    alias_is_empty = self._alias.gsub(/\s+/, '').empty?
     if alias_is_empty
       new_alias = ''
       loop do
         new_alias = generate_random_string(8)
-        break if Url.where(alias: new_alias).empty?
+        break if Url.where(_alias: new_alias).empty?
       end
 
-      self.alias = new_alias
+      self._alias = new_alias
     else
-      self.alias = self.alias.strip.gsub(/\s+/, '-')
+      self._alias = self._alias.strip.gsub(/\s+/, '-')
     end
   end
 end
