@@ -20,7 +20,7 @@ RSpec.describe UrlsController, type: :controller do
       expect(response).to render_template 'index'
     end
 
-    it "redirect to sign in if user is not signed in" do
+    it "redirects to sign in if user is not signed in" do
       get :index
       expect(response).to redirect_to new_user_session_path
     end
@@ -45,7 +45,7 @@ RSpec.describe UrlsController, type: :controller do
         }.to change(User, :count).by 1
       end
       
-      it "redirect to urls index" do
+      it "redirects to urls index" do
         sign_in @user
         post :create, params: { url: FactoryBot.attributes_for(:url), user: @user }
         expect(response).to redirect_to urls_path
@@ -55,14 +55,14 @@ RSpec.describe UrlsController, type: :controller do
     context "with an invalid attributes" do
       it "doesn't create a new url" do
         expect {
-          post :create, params: { url: {link: nil, _alais: nil, user: nil} }
+          post :create, params: { url: { link: nil, _alais: nil, user: nil } }
         }.not_to change(User, :count)
       end
       
-      it "re-render the new method" do
+      it "re-renders the new method" do
         @user = FactoryBot.create(:user)
         sign_in @user
-        post :create, params: { url: {link: nil, _alais: nil, user: nil} }
+        post :create, params: { url: { link: nil, _alais: nil, user: nil } }
         expect(response).to render_template :new
       end
     end
@@ -78,13 +78,27 @@ RSpec.describe UrlsController, type: :controller do
       expect(assigns(:url)).to eq @url
     end
 
-    it "redirect to url link" do
+    it "redirects to url link" do
       get :show, params: { id: @url.id }
       expect(response).to redirect_to @url.link
     end
   end
 
   describe "GET #destroy" do
+    before :each do
+      @url = FactoryBot.create(:url)
+    end
     
+    it "deletes the url" do
+
+      # expect{
+      #   delete :destroy, params: { id: @url.id }        
+      # }.to change(User, :count).by -1
+    end
+    
+    it "redirects to url#index" do
+      delete :destroy, params: { id: @url.id }        
+      expect(response).to redirect_to urls_path
+    end
   end
 end
