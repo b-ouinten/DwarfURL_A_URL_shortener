@@ -26,6 +26,13 @@ class UrlsController < ApplicationController
     redirect_to @url.link
   end
 
+  def destroy
+    Url.destroy(params[:id])
+    redirect_to urls_path
+  end
+
+  private
+
   def permitted_url_params
     params.require(:url).permit(:link, :alias)
   end

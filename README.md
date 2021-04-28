@@ -3,4 +3,6 @@ This mini website provides a URL shortener that can create a DwarfURL from a gia
 
 Generate a DwarfURL is very simple all you have to do is provide your giant URL. You can also personalize your DwarfURL by providing an alias.
 
+This website is mobile friendly.
+
 You can try it here : https://dwarfurler.herokuapp.com/ !

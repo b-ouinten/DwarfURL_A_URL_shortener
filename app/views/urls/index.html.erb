@@ -10,11 +10,14 @@
               <p class="text-card mb-0"><%= url.link %></p>
             </div>
           </div>
-          <div class="card alert-success">
+          <div class="card alert-success mb-1">
             <div class="card-body p-2">
               <h6 class="title-card">Dwarf url</h6>
               <%= link_to "#{root_url}urls/#{url.alias}", url_path(url.slug), class: 'text-card link-text-color text-decoration-none mb-0' %>
             </div>
+          </div>
+          <div class="text-center">
+            <%= link_to 'Delete this DwarfURL', url_path(url.id), method: 'delete', class: "btn btn-danger btn-sm" %>
           </div>
         </li>
       <% end %>
