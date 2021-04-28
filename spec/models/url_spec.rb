@@ -61,7 +61,7 @@ RSpec.describe Url, type: :model do
         it "should set alias if it doesn't defined" do
           url = FactoryBot.create(:url, :without_alias)
           expect(url._alias.empty?).to eq false
-          expect(url._alias).to be_a String
+          expect(url._alias.match? /\s+/).to eq false
         end
 
         it "should normalize alias" do

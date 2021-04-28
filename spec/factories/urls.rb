@@ -7,7 +7,7 @@ FactoryBot.define do
 
     _alias { Faker::Internet.slug }
     trait :without_alias do
-      _alias { nil }
+      _alias { '' }
     end
 
     user { FactoryBot.create(:user) }
