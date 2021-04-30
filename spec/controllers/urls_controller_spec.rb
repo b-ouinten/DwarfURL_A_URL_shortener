@@ -41,13 +41,13 @@ RSpec.describe UrlsController, type: :controller do
       
       it "create a new url" do
         expect {
-          post :create, params: { url: FactoryBot.attributes_for(:url), user: @user }
+          post :create, params: { url: FactoryBot.attributes_for(:url) }
         }.to change(User, :count).by 1
       end
       
       it "redirects to urls index" do
         sign_in @user
-        post :create, params: { url: FactoryBot.attributes_for(:url), user: @user }
+        post :create, params: { url: FactoryBot.attributes_for(:url, user: @user) }
         expect(response).to redirect_to urls_path
       end
     end
@@ -90,10 +90,9 @@ RSpec.describe UrlsController, type: :controller do
     end
     
     it "deletes the url" do
-
-      # expect{
-      #   delete :destroy, params: { id: @url.id }        
-      # }.to change(User, :count).by -1
+      expect{
+        delete :destroy, params: { id: @url.id }        
+      }.to change(Url, :count).by -1
     end
     
     it "redirects to url#index" do

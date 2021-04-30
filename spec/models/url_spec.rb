@@ -37,12 +37,20 @@ RSpec.describe Url, type: :model do
         expect(invalid_url.errors.messages[:link].join.include? 'blank').to eq true
       end
 
-      it "should not be already exist" do
-        url = FactoryBot.create(:url, link: 'my_link')
-        invalid_url = FactoryBot.build(:url, link: 'my_link')
+      it "should not be already exist for the same user" do
+        url = FactoryBot.create(:url, link: 'my_link', user: @user)
+        invalid_url = FactoryBot.build(:url, link: 'my_link', user: @user)
         expect(invalid_url).to_not be_valid
         expect(invalid_url.errors.include? :link).to eq true
         expect(invalid_url.errors.messages[:link].join.include? 'exist').to eq true
+      end
+
+      it "can be exist for another user" do
+        user_1 = FactoryBot.create(:user)
+        url_1 = FactoryBot.create(:url, user: user_1, link: 'my_link')
+        user_2 = FactoryBot.create(:user)
+        url_2 = FactoryBot.create(:url, user: user_2, link: 'my_link')
+        expect(url_2).to be_valid
       end
     end
 
