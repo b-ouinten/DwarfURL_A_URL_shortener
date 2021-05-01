@@ -18,6 +18,7 @@ RSpec.describe UrlsController, type: :controller do
       sign_in @user
       get :index
       expect(response).to render_template 'index'
+      expect(response).to have_http_status :success
     end
 
     it "redirects to sign in if user is not signed in" do

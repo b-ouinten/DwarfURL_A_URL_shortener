@@ -7,7 +7,6 @@ RSpec.describe Url, type: :model do
   end
 
   context "associations" do
-    
     describe "url" do
       it "should belongs_to user" do
         url = FactoryBot.create(:url, user: @user)
@@ -68,6 +67,7 @@ RSpec.describe Url, type: :model do
       describe "handle_alias" do
         it "should set alias if it doesn't defined" do
           url = FactoryBot.create(:url, :without_alias)
+          expect(url._alias.nil?).to eq false
           expect(url._alias.empty?).to eq false
           expect(url._alias.match? /\s+/).to eq false
         end

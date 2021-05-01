@@ -11,22 +11,21 @@
       </li>
     </ul>
 
-    <% if user_signed_in? %>
-      <div class="btn-group" role="group">
+    <div class="btn-group" role="group">
+      <% if user_signed_in? %>
         <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welcome <%= current_user_username %></button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-          <%= link_to 'My DwarfURLs', my_dwarfURLs_path, class: "dropdown-item" %>
           <%= link_to "Log Out", destroy_user_session_path, :class => "dropdown-item", method: :delete %>
         </div>
-      </div>
-    <% else %>
-      <div class="btn-group" role="group">
+        <%= link_to 'My DwarfURLs', my_dwarfURLs_path, class: "text-white bg-primary dropdown-item" %>
+      <% else %>
         <button id="btnGroupDrop3" type="button" class="btn btn-primary dropdown-toggle p-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Connection</button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
           <%= link_to 'Sign Up', new_user_registration_path, class: "dropdown-item" %>
           <%= link_to 'Log In', new_user_session_path, class: "dropdown-item" %>
         </div>
-      </div> 
-    <% end %>
+        <%= link_to 'My DwarfURLs', offline_my_dwarfURLs_path, class: "text-white bg-primary  dropdown-item" %>
+      <% end %>
+    </div>
   </div>
 </nav>
