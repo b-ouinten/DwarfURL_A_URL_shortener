@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   root 'urls#new'
   devise_for :users
   resources :urls
+  get '/my_dwarfURLs', to: 'urls#index'
+
+  get '/:id', to: 'urls#show'
 end

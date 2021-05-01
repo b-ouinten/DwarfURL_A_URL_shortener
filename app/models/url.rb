@@ -37,7 +37,7 @@ class Url < ApplicationRecord
 
       self._alias = new_alias
     else
-      self._alias = self._alias.strip.gsub(/\s+/, '-')
+      self._alias = self._alias.parameterize preserve_case: true
     end
   end
 end

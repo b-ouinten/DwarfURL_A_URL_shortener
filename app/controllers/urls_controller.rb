@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :create, :destroy]
 
   def index
     @urls = current_user.urls.order(created_at: :desc)
@@ -14,7 +14,7 @@ class UrlsController < ApplicationController
 
     if @url.save
       flash[:success] = 'DwarfURL generated successfully !'
-      redirect_to urls_path
+      redirect_to my_dwarfURLs_path
     else
       flash[:alert] = @url.errors.full_messages.to_sentence
       render :new
@@ -27,8 +27,8 @@ class UrlsController < ApplicationController
   end
 
   def destroy
-    Url.destroy(params[:id])
-    redirect_to urls_path
+    current_user.urls.destroy(params[:id])
+    redirect_to my_dwarfURLs_path
   end
 
   private
