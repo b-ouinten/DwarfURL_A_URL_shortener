@@ -34,11 +34,12 @@ RSpec.describe UrlsController, type: :controller do
   end
 
   describe "GET #create" do
+    before :each do
+      @user = FactoryBot.create(:user)
+      sign_in @user
+    end
+
     context "with a valid attributes" do
-      before :each do
-        @user = FactoryBot.create(:user)
-      end
-      
       it "create a new url" do
         expect {
           post :create, params: { url: FactoryBot.attributes_for(:url) }
@@ -46,9 +47,8 @@ RSpec.describe UrlsController, type: :controller do
       end
       
       it "redirects to urls index" do
-        sign_in @user
         post :create, params: { url: FactoryBot.attributes_for(:url, user: @user) }
-        expect(response).to redirect_to urls_path
+        expect(response).to redirect_to my_dwarfURLs_path
       end
     end
 
@@ -61,7 +61,6 @@ RSpec.describe UrlsController, type: :controller do
       
       it "re-renders the new method" do
         @user = FactoryBot.create(:user)
-        sign_in @user
         post :create, params: { url: { link: nil, _alais: nil, user: nil } }
         expect(response).to render_template :new
       end
@@ -86,7 +85,9 @@ RSpec.describe UrlsController, type: :controller do
 
   describe "GET #destroy" do
     before :each do
-      @url = FactoryBot.create(:url)
+      @user = FactoryBot.create(:user)
+      sign_in @user
+      @url = FactoryBot.create(:url, user: @user)
     end
     
     it "deletes the url" do
@@ -97,7 +98,7 @@ RSpec.describe UrlsController, type: :controller do
     
     it "redirects to url#index" do
       delete :destroy, params: { id: @url.id }        
-      expect(response).to redirect_to urls_path
+      expect(response).to redirect_to my_dwarfURLs_path
     end
   end
 end
