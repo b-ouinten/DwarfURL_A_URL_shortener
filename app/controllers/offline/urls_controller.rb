@@ -2,7 +2,7 @@ class Offline::UrlsController < ApplicationController
   before_action :handle_alias, only: :create
   
   def index
-    @urls = pull_cookie_at(:dwarfURLs).reverse
+    @urls = pull_cookie_at :dwarfURLs
   end
 
   def new
@@ -23,11 +23,19 @@ class Offline::UrlsController < ApplicationController
     @url = @urls.keep_if do |x|
       x["_alias"] == _alias
     end.last
-
+    
     redirect_to @url["link"]
   end
-
+  
   def destroy
+    _alias = params[:id]
+    @urls = pull_cookie_at :dwarfURLs
+    @urls.delete_if do |x|
+      x["_alias"] == _alias
+    end
+
+    cookies.permanent[:dwarfURLs] = JSON.generate @urls
+    redirect_to offline_my_dwarfURLs_path
   end
 
   private

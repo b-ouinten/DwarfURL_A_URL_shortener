@@ -1,7 +1,7 @@
 module CookiesHelper
   def push_to_cookie_at(key, item)
     cookie = pull_cookie_at key
-    cookie.push item
+    cookie.unshift item
     cookies.permanent[key] = JSON.generate(cookie)
   end
 
