@@ -6,23 +6,29 @@ class Offline::UrlsController < ApplicationController
   end
 
   def new
-    @url = Url.new
+
   end
 
   def create
     params = permitted_url_params
     params[:_alias] = @alias
-    push_to_cookie_at :dwarfURLs, params.to_h
 
-    redirect_to offline_my_dwarfURLs_path
+    errors = check_validity(params)[:errors]
+    if errors.empty?
+      push_to_cookie_at :dwarfURLs, params.to_h
+      flash[:success] = 'DwarfURL generated successfully !'
+      redirect_to offline_my_dwarfURLs_path
+    else
+      flash[:alert] = errors
+      render :new
+    end
+
   end
 
   def show
     _alias = params[:id]
     @urls = pull_cookie_at :dwarfURLs
-    @url = @urls.keep_if do |x|
-      x["_alias"] == _alias
-    end.last
+    @url = @urls.keep_if { _1["_alias"] == _alias }.last
     
     redirect_to @url["link"]
   end
@@ -51,12 +57,29 @@ class Offline::UrlsController < ApplicationController
       new_alias = ''
       loop do
         new_alias = generate_random_string(8)
-        break if Url.where(_alias: new_alias).empty?
+        break if not alias_exists? new_alias
       end
 
       @alias = new_alias
     else
       @alias = @alias.parameterize preserve_case: true
     end
+  end
+
+  def check_validity(params)
+    errors = []
+    errors << 'Link already exist !' if link_exists? params[:link]
+    errors << 'Alias already exist !' if alias_exists? params[:_alias]
+    { errors: errors.join(' and ') }
+  end
+
+  def link_exists?(link)
+    urls = pull_cookie_at :dwarfURLs
+    (urls.any? { _1["link"].eql? link }) || (not Url.where(link: link).empty?)
+  end
+  
+  def alias_exists?(_alias)
+    urls = pull_cookie_at :dwarfURLs
+    (urls.any? { _1["_alias"].eql? _alias }) || (not Url.where(_alias: _alias).empty?)
   end
 end
