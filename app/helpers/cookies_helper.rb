@@ -11,7 +11,7 @@ module CookiesHelper
 
   def inject_cookie_urls_to_db
     urls = pull_cookie_at :dwarfURLs
-    current_user.urls << urls.map { Url.new(_1) }
+    current_user.urls << urls.reverse.map { Url.new(_1) }
     cookies.delete :dwarfURLs
   end
 end
