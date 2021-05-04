@@ -1,17 +1,19 @@
 class Offline::UrlsController < ApplicationController
   before_action :handle_alias, only: :create
+  before_action :set_urls, except: [:new, :create]
   
   def index
-    @urls = pull_cookie_at :dwarfURLs
+
   end
 
   def new
-
+    @url = Url.new
   end
 
   def create
     params = permitted_url_params
     params[:_alias] = @alias
+    @url = Url.new params
 
     errors = check_validity(params)[:errors]
     if errors.empty?
@@ -19,7 +21,7 @@ class Offline::UrlsController < ApplicationController
       flash[:success] = 'DwarfURL generated successfully !'
       redirect_to offline_my_dwarfURLs_path
     else
-      flash[:alert] = errors
+      flash[:alert] = "#{errors} !" 
       render :new
     end
 
@@ -27,7 +29,6 @@ class Offline::UrlsController < ApplicationController
 
   def show
     _alias = params[:id]
-    @urls = pull_cookie_at :dwarfURLs
     @url = @urls.keep_if { _1["_alias"] == _alias }.last
     
     redirect_to @url["link"]
@@ -35,7 +36,6 @@ class Offline::UrlsController < ApplicationController
   
   def destroy
     _alias = params[:id]
-    @urls = pull_cookie_at :dwarfURLs
     @urls.delete_if do |x|
       x["_alias"] == _alias
     end
@@ -47,7 +47,11 @@ class Offline::UrlsController < ApplicationController
   private
 
   def permitted_url_params
-    params.require(:url).permit(:link, :_alias)
+    params.require(:url).permit :link, :_alias
+  end
+
+  def set_urls
+    @urls = pull_cookie_at :dwarfURLs
   end
 
   def handle_alias
@@ -68,14 +72,14 @@ class Offline::UrlsController < ApplicationController
 
   def check_validity(params)
     errors = []
-    errors << 'Link already exist !' if link_exists? params[:link]
-    errors << 'Alias already exist !' if alias_exists? params[:_alias]
+    errors << 'Link already exist' if link_exists? params[:link]
+    errors << 'Alias already exist' if alias_exists? params[:_alias]
     { errors: errors.join(' and ') }
   end
 
   def link_exists?(link)
     urls = pull_cookie_at :dwarfURLs
-    (urls.any? { _1["link"].eql? link }) || (not Url.where(link: link).empty?)
+    urls.any? { _1["link"].eql? link }
   end
   
   def alias_exists?(_alias)

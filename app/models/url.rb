@@ -5,8 +5,8 @@ class Url < ApplicationRecord
   # Validations
   validates :link, 
     presence: true, 
-    uniqueness: { scope: :user_id, message: "already exist !" }
-  validates :_alias, uniqueness: { message: "already exist !" }
+    uniqueness: { scope: :user_id, message: "already exist" }
+  validates :_alias, uniqueness: { message: "already exist" }
 
   # Callbacks
   before_validation :handle_alias

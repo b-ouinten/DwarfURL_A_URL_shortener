@@ -11,5 +11,5 @@
   </div>
 </div>
 <div class="text-center">
-  <%= link_to 'Delete this DwarfURL', offline_url_path(url["_alias"]), method: 'delete', class: "btn btn-danger btn-sm" %>
+  <a href="<%= offline_url_path(url["_alias"]) %>" data-method = "delete" data-confirm = "Are you sure you want to delete this url ?" class="btn btn-danger btn-sm">Delete this DwarfURL</a>
 </div>
