@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     super
 
-    inject_cookie_urls_to_db
+    inject_cookie_urls_into_db
   end
 
   # DELETE /resource/sign_out

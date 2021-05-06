@@ -9,7 +9,7 @@ module CookiesHelper
     cookies[key] ? JSON.parse(cookies[key]) : []
   end
 
-  def inject_cookie_urls_to_db
+  def inject_cookie_urls_into_db
     urls = pull_cookie_at :dwarfURLs
     current_user.urls << urls.reverse.map { Url.new(_1) }
     cookies.delete :dwarfURLs

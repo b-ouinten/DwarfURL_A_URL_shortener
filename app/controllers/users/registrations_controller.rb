@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
 
-    inject_cookie_urls_to_db
+    inject_cookie_urls_into_db
   end
 
   # GET /resource/edit
